@@ -1,6 +1,7 @@
 import './App.css'
 import Header from './components/Header/Header'
 import Card from './components/Card/Card'
+import MyButton from './components/UI/Button/MyButton'
 
 function App() {
 
@@ -9,12 +10,12 @@ function App() {
     <Header/>
     <main className="content">
         <div className="filter">
-            <button className="breakfast filter-menu">Завтраки</button>
-            <button className="drinks filter-menu">Напитки</button>
-            <button className="combos filter-menu">Комбо</button>
-            <button className="pizzas filter-menu">Пиццы</button>
-            <button className="desserts filter-menu">Десерты</button>
-            <button className="sauces filter-menu">Соусы</button>
+            <MyButton>Завтраки</MyButton>
+            <MyButton>Напитки</MyButton>
+            <MyButton>Комбо</MyButton>
+            <MyButton>Пиццы</MyButton>
+            <MyButton>Десерты</MyButton>
+            <MyButton>Соусы</MyButton>
         </div>
         <div className="menu">
             <Card/>

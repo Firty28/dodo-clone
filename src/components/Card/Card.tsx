@@ -3,6 +3,7 @@ import imageCard from "../../assets/image/image1.jpg"
 import { useMoneyStore } from "../../store/storeZ"
 import Modal from "../UI/Modal/Modal"
 import EatInModal from "../EatInModal/EatInModal"
+import MyButton from "../UI/Button/MyButton"
 
 
 const Card = () => {
@@ -19,7 +20,7 @@ const Card = () => {
     <div className="container-price">
         <div className="price">450&#8381;</div>
        
-        <button onClick={() => {addMoney(32); setModalActive(true)}} className="basket" >В корзину</button>
+        <MyButton onClick={() => {addMoney(32); setModalActive(true)}}>В корзину</MyButton>
         <Modal active={modalActive} setActive={setModalActive}>
           <EatInModal/>
         </Modal>
