@@ -87,3 +87,14 @@ input[type="radio"] {
     text-align: center;
     z-index: 2;
 }
+
+.counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.count {
+    font-size: 32px;
+}

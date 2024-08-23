@@ -8,9 +8,6 @@
   border-radius: 20px;
 }
 
-.button:hover {
-    transform: scale(1.1, 1.1);
-}
 
 .button:active {
     border: 2px solid var(--default-color);

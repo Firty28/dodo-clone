@@ -1,9 +1,16 @@
 import { useState } from "react"
-import image from "../../assets/image/pizza1.avif"
 import "./eatInModal.css"
 import MyButton from "../UI/Button/MyButton"
+import { useMoneyStore, useCountStore } from "../../store/storeZ"
 
-const EatInModal = () => {
+interface IEatInModalProps {
+  price: number,
+  imgUrl: string,
+  title: string,
+
+}
+
+const EatInModal: React.FC<IEatInModalProps> = ({ price, imgUrl, title }) => {
 
   type CssTransform = 0 | 100 | 200
   type SizePizza = 25 | 30 | 35 
@@ -13,7 +20,9 @@ const EatInModal = () => {
   const [translateDough, setTranslateDough] = useState<CssTransform>(0)
   const [sizePizza, setSizePizza] = useState<SizePizza>(25)
   const [doughPizza, setDoughPizza] = useState<DoughPizza>("Традиционное")
-
+  
+  const { addMoney } = useMoneyStore()
+  const { counter, increment, decrement } = useCountStore()
 
   function ClickOnSizePizza(translate: CssTransform, value: string) {
     if (value === "Большая") {
@@ -38,9 +47,9 @@ const EatInModal = () => {
 
   return (
     <div className='eat-modal-container'>
-        <img src={image} alt="No name" className='image-in-modal'/>
+        <img src={imgUrl} alt="No name" className='image-in-modal'/>
         <div className="info">
-            <div className="name">Мясная с аджикой</div>
+            <div className="name">{title}</div>
             <div className="size-weight">{sizePizza} см, {doughPizza} тесто 25, 420 г</div>
                 <div className="ingredients">Баварские колбаски , острый соус аджика, острые колбаски чоризо , цыпленок , пикантная пепперони , моцарелла, фирменный томатный соус</div>
                 <div className="button-container-size">
@@ -59,8 +68,13 @@ const EatInModal = () => {
                     <input type="radio" id='Сrust' name='dough-pizza' className='input-r-crust' value="Тонкая" />
                     <label htmlFor="Сrust" onClick={() => ClickOnDoughPizza(100, "Тонкая")}>Тонкая</label>
                 </div>
+                <div className="counter">
+                  <MyButton onClick={() => decrement()}>-</MyButton>
+                  <div className="count">{counter}</div>
+                  <MyButton onClick={() => increment()}>+</MyButton>
+                </div>
                 
-                <MyButton style={{ marginTop: "auto" }}>В корзину</MyButton>
+                <MyButton onClick={() => addMoney(price * counter)} style={{ marginTop: "10px" }}>В корзину за {price * counter}&#8381;</MyButton>
         </div>
     </div>
   )
