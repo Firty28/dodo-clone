@@ -1,7 +1,7 @@
 import { useState } from "react"
 import "./eatInModal.css"
 import MyButton from "../UI/Button/MyButton"
-import { useMoneyStore, useCountStore } from "../../store/storeZ"
+import { useSelectedProducts } from "../../store/storeZ"
 
 interface IEatInModalProps {
   price: number,
@@ -11,7 +11,7 @@ interface IEatInModalProps {
 }
 
 const EatInModal: React.FC<IEatInModalProps> = ({ price, imgUrl, title }) => {
-
+  
   type CssTransform = 0 | 100 | 200
   type SizePizza = 25 | 30 | 35 
   type DoughPizza = "Традиционное" | "Тонкое"
@@ -20,9 +20,9 @@ const EatInModal: React.FC<IEatInModalProps> = ({ price, imgUrl, title }) => {
   const [translateDough, setTranslateDough] = useState<CssTransform>(0)
   const [sizePizza, setSizePizza] = useState<SizePizza>(25)
   const [doughPizza, setDoughPizza] = useState<DoughPizza>("Традиционное")
+  const [count, setCount] = useState(1)
   
-  const { addMoney } = useMoneyStore()
-  const { counter, increment, decrement } = useCountStore()
+  const { addSelectedProducts } = useSelectedProducts()
 
   function ClickOnSizePizza(translate: CssTransform, value: string) {
     if (value === "Большая") {
@@ -34,7 +34,6 @@ const EatInModal: React.FC<IEatInModalProps> = ({ price, imgUrl, title }) => {
     }
     setTranslateSize(translate)
   }
-
   
   function ClickOnDoughPizza(translate: CssTransform, value: string) {
     if (value === "Традиционная") {
@@ -44,6 +43,7 @@ const EatInModal: React.FC<IEatInModalProps> = ({ price, imgUrl, title }) => {
     }
     setTranslateDough(translate)
   }
+
 
   return (
     <div className='eat-modal-container'>
@@ -69,12 +69,12 @@ const EatInModal: React.FC<IEatInModalProps> = ({ price, imgUrl, title }) => {
                     <label htmlFor="Сrust" onClick={() => ClickOnDoughPizza(100, "Тонкая")}>Тонкая</label>
                 </div>
                 <div className="counter">
-                  <MyButton onClick={() => decrement()}>-</MyButton>
-                  <div className="count">{counter}</div>
-                  <MyButton onClick={() => increment()}>+</MyButton>
+                  <MyButton onClick={() => count > 1 ? setCount(count - 1) : setCount(1)}>-</MyButton>
+                  <div className="count">{count}</div>
+                  <MyButton onClick={() => setCount(count + 1)}>+</MyButton>
                 </div>
                 
-                <MyButton onClick={() => addMoney(price * counter)} style={{ marginTop: "10px" }}>В корзину за {price * counter}&#8381;</MyButton>
+                <MyButton onClick={() => addSelectedProducts(price, title, count)} style={{ marginTop: "10px" }}>В корзину за {price * count}&#8381;</MyButton>
         </div>
     </div>
   )

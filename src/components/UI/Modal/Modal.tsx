@@ -3,7 +3,7 @@ import "./myModal.modal.css"
 
 interface IModal {
      active: boolean, 
-     setActive: (state: boolean) => void 
+     setActive: (active: boolean) => void 
      children?: React.ReactNode
 }
 
